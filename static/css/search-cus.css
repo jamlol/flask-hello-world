@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* Set the flex-direction to column */
+    align-items: center;
+    min-height: 100vh;
+    background-color: #6F5643;
+}
+
+.search-cus-container {
+    margin-top: 50px;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #ECE6C2;
+}
+
+.search-cus-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #CC6B49;
+}
+
+.search-cus-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.search-cus-container table th, .search-cus-container table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.search-cus-container table th {
+    background-color: #CC6B49;
+    color: #fff;
+    width: 50px;
+}
+
+.search-cus-container table .row {
+    background-color: #ffffff;
+    font-weight: bolder;
+    color: #828282;
+}
+
+/* Using CSS Grid to create a template for rows */
+.search-cus-container table {
+    font-size: 15px;
+    display: flex;
+    grid-template-columns: repeat(3, 2fr); /* Three equal-width columns */
+    gap: 0; /* No gap between cells */
+}
+.deletebutton {
+    background-color: rgb(219, 116, 116);
+}
+.updatebutton {
+    background-color: rgb(116, 219, 130);
+}
+.modify-input {
+    min-width: 0px;
+    padding: 0;
+    margin: 0;
+    width: 75px;
+}
+.search-cus-container table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Alternate row background color */
+}
+
+/* Add styles for table headers */
+.search-cus-container table th {
+    font-weight: bold;
+    
+}
+
+/* Add styles for the data cells */
+.search-cus-container table td {
+    text-align: left;
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Screen</title>
+    <link rel = "stylesheet" href="{{url_for('static',filename='css/franchise.css')}}">
+</head>
+<body>
+    <div class="login-container">
+        <img class='vinyl' src="vinyl.png"></img>
+        <form class="login-form" action="#" method="post">
+            <div class="select-container">
+                <select name="user-type" required>
+                    <option value="" disabled selected>Select Franchise</option>
+                    <option value="manager">Franchise 1</option>
+                    <option value="customer">Franchise 2</option>
+                </select>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>

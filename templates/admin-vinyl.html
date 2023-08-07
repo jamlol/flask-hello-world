@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager View</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"></head>
+
+    <!-- fontawesome 5 -->
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+<body class="" style="background-color: #6F5643">
+
+    <a class="btn btn-primary p-2 mb-3" href="{{ url_for('admin_dash') }}" style="background-color: #CC6B49;" role="button">Go to Dashboard</a>
+    <div class="container" style="width: 25%; margin-top: 1%;">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-record-vinyl fa-xl"></i></span>
+            </div>
+            <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Search.." aria-label="Search" aria-describedby="basic-addon1">
+          </div>
+       </div>
+  
+    <div class="container rounded flex-column p-3 h-100" style="background-color: #ECE6C2"> 
+        <h2 style="text-align: center; margin-bottom: 20px; color: #CC6B49;">Available Records</h2>
+        {%with messages = get_flashed_messages()%}
+        {%if messages%}
+        <div class="alert alert-danger mt-3" role="alert">
+            {% for message in messages %}
+            {{message}}
+            {% endfor %}
+            </div>
+        {%endif%}
+        {%endwith%}
+
+        <form action="/admin-vinyl/delete" method="post" id="del-form"></form>
+        <table id="myTable" class="table table-striped h-50">
+            <thead style="color: white; background-color: #73BDA8;">
+                <tr class="row-header text-center align-middle">
+                    <th style="text-align: center;">Vinyl ID</th>
+                    <th style="text-align: center;">Name</th>
+                    <th style="text-align: center;">Artist</th>
+                    <th style="text-align: center;">Genre</th>
+                    <th style="text-align: center;">Price</th>
+                    <th>Delete</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            {% for item in data %}
+            <tr class="text-center align-middle">
+                <td>{{ item[0] }}</td>
+                <td>{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
+                <td>{{ item[3] }}</td>
+                <td>{{ item[4] }}</td>
+                <td><button type="submit" class="btn btn-default btn-md" name="del" form="del-form" value="{{item[0]}}"><i class="far fa-solid fa-trash" style="color: red;"></i></button></td>
+                <td><button type="submit" class="btn btn-default btn-md" data-bs-toggle="modal" data-bs-target="#updateModal" value="{{item[0]}}"><i class="fa-solid fa-screwdriver-wrench" style="color: #1e3050;"></i></button></td>
+            </tr>
+            {% endfor %}
+            <!-- Populate table rows dynamically with JavaScript -->
+            <script>
+                function myFunction() {
+                  // Declare variables
+                  var input, filter, table, tr, td, i, txtValue;
+                  input = document.getElementById("myInput");
+                  filter = input.value.toUpperCase();
+                  table = document.getElementById("myTable");
+                  tr = table.getElementsByTagName("tr");
+                
+                  // Loop through all table rows, and hide those who don't match the search query
+                  for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[1];
+                    if (td) {
+                      txtValue = td.textContent || td.innerText;
+                      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                      } else {
+                        tr[i].style.display = "none";
+                      }
+                    }
+                  }
+                }
+                </script>
+                <thead>
+                    <form action="/admin-vinyl/add" method="post" id="add-form" >
+                    <tr class="row-header text-center align-middle">
+                        <th style="text-align: center;">
+                            <div class="col-auto">
+                                <label for="inputName" class="visually-hidden">Name</label>
+                                <input type="text" name="inputName" class="form-control" id="inputName" placeholder="Enter Name...">
+                            </div>
+                        </th>
+                        <th style="text-align: center;">
+                            <div class="col-auto">
+                                <label for="inputArtist" class="visually-hidden">Artist</label>
+                                <input type="text" name="inputArtist" class="form-control" id="inputArtist" placeholder="Enter Artist...">
+                            </div>
+                        </th>
+                        <th style="text-align: center;">
+                            <div class="col-auto">
+                                <label for="inputGenre" class="visually-hidden">Genre</label>
+                                <input type="text" name="inputGenre" class="form-control" id="inputGenre" placeholder="Enter Genre...">
+                            </div>
+                        </th>
+                        <th style="text-align: center;">
+                            <div class="col-auto">
+                                <label for="inputPrice" class="visually-hidden">Price</label>
+                                <input type="text" name="inputPrice" class="form-control" id="inputPrice" placeholder="Enter Price...">
+                            </div>
+                        </th>
+                        <th>
+                            <button type="submit" class="btn btn-success" form="add-form" ><i class="fa-solid fa-plus" style="padding-right: 5px;"></i>Add to table</button>
+                        </th>
+                        <th></th>
+                    </form>
+                    </tr>
+                </thead>
+        </table>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="updateModalLabel">Update Record</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/admin-vinyl/update" method="post" id="upd-form" >
+            <div class="modal-body">
+                <div class="col-auto p-2">
+                    <label for="vinylID" class="visually-hidden">Vinyl ID</label>
+                    <input type="text" name="vinylID" class="form-control" id="vinylID" placeholder="Enter Vinyl ID to update...">
+                </div>
+                <div class="col-auto p-2">
+                    <label for="updateName" class="visually-hidden">Name</label>
+                    <input type="text" name="updateName" class="form-control" id="updateName" placeholder="Enter Name...">
+                </div>
+                <div class="col-auto p-2">
+                    <label for="updateArtist" class="visually-hidden">Artist</label>
+                    <input type="text" name="updateArtist" class="form-control" id="updateArtist" placeholder="Enter Artist...">
+                </div>
+                <div class="col-auto p-2">
+                    <label for="updateGenre" class="visually-hidden">Genre</label>
+                    <input type="text" name="updateGenre" class="form-control" id="updateGenre" placeholder="Enter Genre...">
+                </div>
+                <div class="col-auto p-2">
+                    <label for="updatePrice" class="visually-hidden">Price</label>
+                    <input type="text" name="updatePrice" class="form-control" id="updatePrice" placeholder="Enter Price...">
+                </div>
+            </div>
+            </form>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" form="upd-form" class="btn btn-primary" style="background-color: #73BDA8;" >Save changes</button>
+            </div>
+        </div>
+        </div>
+    </div>
+  
+     <!-- Bootstrap Javascripts -->  
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

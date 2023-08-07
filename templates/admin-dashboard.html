@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager View</title>
+
+     <!-- Bootstrap CSS -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"></head>
+</head>
+
+<!-- fontawesome 5 -->
+<link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/js/all.min.js"></script>
+
+<body class="" style="background-color: #6F5643">
+    <a class="btn btn-primary p-2 mb-3" href="{{ url_for('login') }}" style="background-color: #CC6B49;" role="button">Go to login</a>
+    <br>
+    <div class="container d-flex rounded flex-column p-3 w-25 h-100 text-center" style="background-color: #ECE6C2">
+        <h2>Manager Dashboard</h2>
+        <a class="btn btn-primary p-2 mb-3" href="{{ url_for('manager_vinyl') }}" style="background-color: #CC6B49;" role="button">Vinyl Manager</a>
+        <a class="btn btn-primary p-2 mb-3" href="{{ url_for('manager_mana') }}" style="background-color: #CC6B49;" role="button">Manager Manager</a>
+        <a class="btn btn-primary p-2 mb-3" href="{{ url_for('manager_cust') }}" style="background-color: #CC6B49;" role="button">Customer Manager</a>
+    <!-- Bootstrap Javascripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

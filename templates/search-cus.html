@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Screen</title>
+    <link rel = "stylesheet" href="{{url_for('static',filename='css/search-cus.css')}}">
+</head>
+
+<!-- fontawesome 5 -->
+<link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/js/all.min.js"></script>
+<body>
+    
+    <a class="btn btn-primary p-2 mb-3" href="{{ url_for('login') }}" style="background-color: #CC6B49;" role="button">Go to login</a>
+
+    <div class="search-cus-container">
+        <h2>Customer Purchases</h2>
+        <form action="/search-cus/delete" method="post" id="del-form"></form>
+        <form action="/search-cus/update" method="post" id="up-form"></form>
+        <table>
+            <tr id="row-header">
+                <th>Pur-ID</th>
+                <th>Vin-ID</th>
+                <th>Cus-ID</th>
+                <th>Pur-Cost</th>
+                <th>Action</th>
+            </tr>
+
+            {% for item in data %}
+            <tr class = "row">
+                <td>{{ item[0] }}</td>
+                <td>{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
+                <td>{{ item[3] }}</td>
+                <td><button class="deletebutton" name="del" form="del-form" value="{{item[0]}}">Delete</button></td>
+            </tr>
+            {% endfor %}
+            <tr id="row-modify" class = "row">
+                <th><input class="modify-input" type="text" name = '1' form="up-form"></th>
+                <th><input class="modify-input" type="text" name = '2' form="up-form"></th>
+                <th><input class="modify-input" type="text" name = '3' form="up-form"></th>
+                <th><input class="modify-input" type="text" name = '4' form="up-form"></th>
+                <td><button class="updatebutton" form="up-form">Update</button></td>
+            </tr>
+             
+           
+
+            <!-- Populate table rows dynamically with JavaScript -->
+        </table>
+    </form>
+    </form>
+    </div>
+    <!-- Bootstrap Javascripts -->  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>
